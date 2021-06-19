@@ -1,9 +1,11 @@
+import Map from 'components/map/map';
+
 import './App.css';
 
 const App = () => (
     <div className="app">
         <div></div>
-        <div></div>
+        <Map />
     </div>
 );
 
