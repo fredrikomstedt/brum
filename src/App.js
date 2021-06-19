@@ -5,7 +5,7 @@ import './App.css';
 const App = () => (
     <div className="app">
         <div></div>
-        <Map />
+        <Map lng={18.042198} lat={59.396539} zoom={15} />
     </div>
 );
 
