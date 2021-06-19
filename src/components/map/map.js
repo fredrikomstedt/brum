@@ -1,4 +1,5 @@
 import mapboxgl from 'mapbox-gl';
+import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 import { useEffect, useRef } from 'react';
 
 import styles from './map.module.css';
@@ -10,6 +11,40 @@ const Map = (props) => {
     const mapContainer = useRef(null);
     const map = useRef(null);
 
+    const findDistance = (directions) => {
+        const origin = directions.getOrigin().geometry.coordinates;
+        const destination = directions.getDestination().geometry.coordinates;
+
+        //Request the route data from MapBox
+        fetch(
+            'https://api.mapbox.com/directions/v5/mapbox/driving/' +
+                origin[0] +
+                ',' +
+                origin[1] +
+                ';' +
+                destination[0] +
+                ',' +
+                destination[1] +
+                '.json?access_token=' +
+                mapboxgl.accessToken
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                const route = data.routes.find((route) => route !== undefined);
+                getPriceFromDistance(route.distance);
+            });
+    };
+
+    const getPriceFromDistance = (distance) => {
+        const distanceInSwedishMiles = distance / 10000;
+        const cost =
+            distanceInSwedishMiles *
+            props.costPerMile *
+            (props.isRoundTrip ? 2 : 1);
+        console.log(cost);
+        return cost;
+    };
+
     useEffect(() => {
         if (map.current) {
             return;
@@ -19,12 +54,31 @@ const Map = (props) => {
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [props.lng, props.lat],
+            center: [props.home.lng, props.home.lat],
             zoom: props.zoom,
         });
 
         // Add navigation controls (rotation, zoom)
         map.current.addControl(new mapboxgl.NavigationControl());
+
+        //Add direction handling
+        const directions = new MapboxDirections({
+            accessToken: mapboxgl.accessToken,
+            unit: 'metric',
+            controls: {
+                instructions: false,
+                profileSwitcher: false,
+            },
+        });
+        map.current.addControl(directions, 'top-left');
+
+        //Set the starting point to be the home of the car
+        directions.setOrigin(props.home.address);
+
+        //Each new distance should result in the app calculating the price
+        directions.on('route', () => {
+            findDistance(directions);
+        });
     });
 
     return <div ref={mapContainer} className={styles.mapContainer} />;
