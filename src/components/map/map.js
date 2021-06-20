@@ -11,35 +11,34 @@ const Map = (props) => {
     const mapContainer = useRef(null);
     const map = useRef(null);
 
-    const findDistance = (directions) => {
+    const findDistance = async (directions) => {
         const origin = directions.getOrigin().geometry.coordinates;
         const destination = directions.getDestination().geometry.coordinates;
 
         //Request the route data from MapBox
-        return fetch(
-            'https://api.mapbox.com/directions/v5/mapbox/driving/' +
-                origin[0] +
-                ',' +
-                origin[1] +
-                ';' +
-                destination[0] +
-                ',' +
-                destination[1] +
-                '.json?access_token=' +
-                mapboxgl.accessToken
-        )
-            .then((response) => response.json())
-            .then((data) => {
-                const route = data.routes.find((route) => route !== undefined);
-                if (route) {
-                    return [route.distance, null];
-                }
-                return [null, 'No route found.'];
-            })
-            .catch((error) => {
-                console.error(error);
-                return [null, 'Something went wrong when creating a route.'];
-            });
+        try {
+            const response = await fetch(
+                'https://api.mapbox.com/directions/v5/mapbox/driving/' +
+                    origin[0] +
+                    ',' +
+                    origin[1] +
+                    ';' +
+                    destination[0] +
+                    ',' +
+                    destination[1] +
+                    '.json?access_token=' +
+                    mapboxgl.accessToken
+            );
+            const data = await response.json();
+            const route = data.routes.find((route) => route !== undefined);
+            if (route) {
+                return [route.distance, null];
+            }
+            return [null, 'No route found.'];
+        } catch (error) {
+            console.error(error);
+            return [null, 'Something went wrong when creating a route.'];
+        }
     };
 
     const getPriceFromDistance = (distance) => {
@@ -81,7 +80,7 @@ const Map = (props) => {
         //Set the starting point to be the home of the car
         directions.setOrigin(props.home.address);
 
-        //Each new distance should result in the app calculating the price
+        //Each new route should result in the app calculating the price
         directions.on('route', () => {
             findDistance(directions).then((result) => {
                 const [distance, error] = result;
