@@ -1,4 +1,5 @@
 import Map from 'components/map/map';
+import Interface from 'components/interface/interface';
 import { useState } from 'react';
 import './App.css';
 
@@ -7,12 +8,7 @@ const App = () => {
     const [mapError, setMapError] = useState(null);
     return (
         <div className="app">
-            <div>
-                {cost && (
-                    <div style={{ color: 'white' }}>{Math.round(cost)}</div>
-                )}
-                {mapError && <div style={{ color: 'red' }}>{mapError}</div>}
-            </div>
+            <Interface cost={cost} mapError={mapError} />
             <Map
                 home={{
                     lng: 18.042198,

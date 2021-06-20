@@ -1,0 +1,22 @@
+.interfaceWrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px auto 60px;
+}
+
+.title {
+    align-self: center;
+    font-weight: 500;
+    color: #fffafb;
+    font-size: 40px;
+    margin-left: 10px;
+}
+
+.footer {
+    font-size: 20px;
+    color: #74746b;
+    font-weight: 300;
+    align-self: end;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
