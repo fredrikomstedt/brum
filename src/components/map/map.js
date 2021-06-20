@@ -34,10 +34,10 @@ const Map = (props) => {
             if (route) {
                 return [route.distance, null];
             }
-            return [null, 'No route found.'];
+            return [null, 'No route found'];
         } catch (error) {
             console.error(error);
-            return [null, 'Something went wrong when creating a route.'];
+            return [null, 'Something went wrong when creating a route'];
         }
     };
 

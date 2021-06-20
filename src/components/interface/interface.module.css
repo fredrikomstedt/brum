@@ -10,6 +10,7 @@
     color: #fffafb;
     font-size: 40px;
     margin-left: 10px;
+    letter-spacing: 0.1em;
 }
 
 .footer {
@@ -19,4 +20,39 @@
     align-self: end;
     margin-left: 5px;
     margin-bottom: 5px;
+}
+
+.headingDivider {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    text-align: center;
+    color: #74746b;
+    font-size: 20px;
+    letter-spacing: 0.3em;
+}
+
+.headingDivider:before,
+.headingDivider:after {
+    position: absolute;
+    top: 51%;
+    overflow: hidden;
+    width: 35%;
+    height: 1px;
+    content: '\a0';
+    background-color: #74746b;
+}
+.headingDivider:before {
+    margin-left: -40%;
+    text-align: right;
+}
+.headingDivider:after {
+    margin-left: 5%;
+    text-align: right;
+}
+
+.optionsWrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto 1fr;
 }

@@ -1,6 +1,8 @@
+import Error from './error/error';
+
 import styles from './interface.module.css';
 
-const Title = () => <div className={styles.title}>{'Brum 🚗💨'}</div>;
+const Title = () => <div className={styles.title}>{'BRUM 🚗💨'}</div>;
 const Footer = () => {
     const currentYear = new Date().getFullYear();
     return (
@@ -10,13 +12,22 @@ const Footer = () => {
     );
 };
 
+const HeadingDivider = (props) => {
+    const { heading } = props;
+    return <div className={styles.headingDivider}>{heading.toUpperCase()}</div>;
+};
+
 const Interface = (props) => {
     const { cost, mapError } = props;
     return (
         <div className={styles.interfaceWrapper}>
             <Title />
-            {cost && <div style={{ color: 'white' }}>{Math.round(cost)}</div>}
-            {mapError && <div style={{ color: 'red' }}>{mapError}</div>}
+            <div className={styles.optionsWrapper}>
+                {mapError && <Error error={mapError} />}
+                {!mapError && <div>{cost}</div>}
+                <HeadingDivider heading={'or'} />
+                <div />
+            </div>
             <Footer />
         </div>
     );

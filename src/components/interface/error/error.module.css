@@ -1,0 +1,23 @@
+.errorWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fffafb;
+}
+
+.error {
+    padding: 5px 10px;
+    font-size: 22px;
+    background-color: #e63946;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    letter-spacing: 0.2em;
+    font-weight: 500;
+}
+
+.info {
+    font-size: 18px;
+    font-weight: 300;
+}
