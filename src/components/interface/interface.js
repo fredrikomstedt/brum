@@ -1,4 +1,5 @@
 import Error from './error/error';
+import PriceFromDistanceCalculator from './priceFromDistanceCalculator/priceFromDistanceCalculator';
 
 import styles from './interface.module.css';
 
@@ -18,7 +19,7 @@ const HeadingDivider = (props) => {
 };
 
 const Interface = (props) => {
-    const { cost, mapError } = props;
+    const { cost, mapError, costPerMile } = props;
     return (
         <div className={styles.interfaceWrapper}>
             <Title />
@@ -26,7 +27,10 @@ const Interface = (props) => {
                 {mapError && <Error error={mapError} />}
                 {!mapError && <div>{cost}</div>}
                 <HeadingDivider heading={'or'} />
-                <div />
+                <PriceFromDistanceCalculator
+                    className={styles.priceFromDistanceCalculator}
+                    costPerMile={costPerMile}
+                />
             </div>
             <Footer />
         </div>

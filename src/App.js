@@ -8,7 +8,7 @@ const App = () => {
     const [mapError, setMapError] = useState(null);
     return (
         <div className="app">
-            <Interface cost={cost} mapError={mapError} />
+            <Interface cost={cost} mapError={mapError} costPerMile={18.5} />
             <Map
                 home={{
                     lng: 18.042198,

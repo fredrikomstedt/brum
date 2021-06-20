@@ -1,0 +1,27 @@
+.wrapper {
+    padding: 0px 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr 1fr;
+    align-items: center;
+}
+
+.infoText {
+    color: #fffafb;
+    font-weight: 300;
+    font-size: 34px;
+    letter-spacing: 0.1em;
+}
+
+.costWrapper {
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.costText {
+    color: #fffafb;
+    font-weight: 500;
+    font-size: 40px;
+}
