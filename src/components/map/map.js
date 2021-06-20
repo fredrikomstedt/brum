@@ -16,7 +16,7 @@ const Map = (props) => {
         const destination = directions.getDestination().geometry.coordinates;
 
         //Request the route data from MapBox
-        fetch(
+        return fetch(
             'https://api.mapbox.com/directions/v5/mapbox/driving/' +
                 origin[0] +
                 ',' +
@@ -31,7 +31,14 @@ const Map = (props) => {
             .then((response) => response.json())
             .then((data) => {
                 const route = data.routes.find((route) => route !== undefined);
-                getPriceFromDistance(route.distance);
+                if (route) {
+                    return [route.distance, null];
+                }
+                return [null, 'No route found.'];
+            })
+            .catch((error) => {
+                console.error(error);
+                return [null, 'Something went wrong when creating a route.'];
             });
     };
 
@@ -41,7 +48,6 @@ const Map = (props) => {
             distanceInSwedishMiles *
             props.costPerMile *
             (props.isRoundTrip ? 2 : 1);
-        console.log(cost);
         return cost;
     };
 
@@ -77,7 +83,17 @@ const Map = (props) => {
 
         //Each new distance should result in the app calculating the price
         directions.on('route', () => {
-            findDistance(directions);
+            findDistance(directions).then((result) => {
+                const [distance, error] = result;
+                if (error) {
+                    props.setCost(null);
+                    props.setMapError(error);
+                } else {
+                    const cost = getPriceFromDistance(distance);
+                    props.setCost(cost);
+                    props.setMapError(null);
+                }
+            });
         });
     });
 

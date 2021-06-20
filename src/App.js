@@ -1,21 +1,32 @@
 import Map from 'components/map/map';
-
+import { useState } from 'react';
 import './App.css';
 
-const App = () => (
-    <div className="app">
-        <div></div>
-        <Map
-            home={{
-                lng: 18.042198,
-                lat: 59.396539,
-                address: 'Mörbyhöjden 16, 182 32 Danderyd, Sweden',
-            }}
-            zoom={15}
-            costPerMile={18.5}
-            isRoundTrip={true}
-        />
-    </div>
-);
+const App = () => {
+    const [cost, setCost] = useState(null);
+    const [mapError, setMapError] = useState(null);
+    return (
+        <div className="app">
+            <div>
+                {cost && (
+                    <div style={{ color: 'white' }}>{Math.round(cost)}</div>
+                )}
+                {mapError && <div style={{ color: 'red' }}>{mapError}</div>}
+            </div>
+            <Map
+                home={{
+                    lng: 18.042198,
+                    lat: 59.396539,
+                    address: 'Mörbyhöjden 16, 182 32 Danderyd, Sweden',
+                }}
+                zoom={14}
+                costPerMile={18.5}
+                isRoundTrip={true}
+                setCost={setCost}
+                setMapError={setMapError}
+            />
+        </div>
+    );
+};
 
 export default App;
