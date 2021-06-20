@@ -1,6 +1,7 @@
 import mapboxgl from 'mapbox-gl';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 import { useEffect, useRef } from 'react';
+import { getPriceFromDistance } from 'utils/utilityFunctions';
 
 import styles from './map.module.css';
 
@@ -41,15 +42,6 @@ const Map = (props) => {
         }
     };
 
-    const getPriceFromDistance = (distance) => {
-        const distanceInSwedishMiles = distance / 10000;
-        const cost =
-            distanceInSwedishMiles *
-            props.costPerMile *
-            (props.isRoundTrip ? 2 : 1);
-        return cost;
-    };
-
     useEffect(() => {
         if (map.current) {
             return;
@@ -88,7 +80,11 @@ const Map = (props) => {
                     props.setCost(null);
                     props.setMapError(error);
                 } else {
-                    const cost = getPriceFromDistance(distance);
+                    let cost = getPriceFromDistance(
+                        distance,
+                        props.costPerMile
+                    );
+                    cost *= props.isRoundTrip ? 2 : 1;
                     props.setCost(cost);
                     props.setMapError(null);
                 }
