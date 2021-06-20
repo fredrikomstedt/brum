@@ -1,0 +1,30 @@
+.infoText {
+    color: #fffafb;
+    font-weight: 300;
+    font-size: 34px;
+    letter-spacing: 0.1em;
+}
+
+.distanceInput {
+    background: transparent;
+    outline: none;
+    color: #fffafb;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 34px;
+    letter-spacing: 0em;
+    border: none;
+    border-bottom: 1px solid #74746b;
+    text-align: right;
+    width: 100px;
+}
+
+.distanceInput::placeholder {
+    color: #74746b;
+}
+
+.distanceInput::-webkit-outer-spin-button,
+.distanceInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

@@ -1,32 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import CostVisualizer from 'components/interface/costVisualizer/costVisualizer';
+import DistanceInput from 'components/interface/distanceInput/distanceInput';
+import { getPriceFromDistance } from 'utils/utilityFunctions';
 
 import styles from './priceFromDistanceCalculator.module.css';
 
-const CostVisualizer = (props) => {
-    const { cost } = props;
-    return (
-        <div className={styles.costWrapper}>
-            {cost && (
-                <div className={styles.costText}>{`💰${Math.round(
-                    props.cost
-                )}kr`}</div>
-            )}
-        </div>
-    );
-};
-
 const PriceFromDistanceCalculator = (props) => {
     const [cost, setCost] = useState(null);
+    const [distance, setDistance] = useState('');
+
+    useEffect(() => {
+        if (distance === '') {
+            setCost(null);
+        } else {
+            const distanceInMeters = parseInt(distance) * 1000;
+            const price = getPriceFromDistance(
+                distanceInMeters,
+                props.costPerMile
+            );
+            setCost(price);
+        }
+    }, [distance, props]);
+
     return (
         <div className={`${styles.wrapper} ${props.className ?? ''}`}>
             <div>
                 <span className={styles.infoText}>
                     {'Enter the length of the trip: '}
                 </span>
-                <input></input>
-                <span className={styles.infoText}>{'km'}</span>
+                <DistanceInput value={distance} setValue={setDistance} />
             </div>
-            <CostVisualizer cost={cost} />
+            <CostVisualizer cost={cost} className={styles.costVisualizer} />
         </div>
     );
 };

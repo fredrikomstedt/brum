@@ -13,15 +13,6 @@
     letter-spacing: 0.1em;
 }
 
-.costWrapper {
+.costVisualizer {
     justify-self: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.costText {
-    color: #fffafb;
-    font-weight: 500;
-    font-size: 40px;
 }
