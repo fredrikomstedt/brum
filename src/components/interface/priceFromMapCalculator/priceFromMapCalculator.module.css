@@ -2,8 +2,14 @@
     padding: 0px 10px;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 2fr 1fr 1fr;
     align-items: center;
+}
+
+@media screen and (max-width: 1000px) {
+    .wrapper {
+        grid-template-rows: 1fr 1fr 1fr;
+    }
 }
 
 .infoText {

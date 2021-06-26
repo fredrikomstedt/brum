@@ -4,6 +4,12 @@
     grid-template-rows: 60px auto 60px;
 }
 
+@media screen and (max-width: 1000px) {
+    .interfaceWrapper {
+        grid-template-rows: 60px auto 20px;
+    }
+}
+
 .title {
     align-self: center;
     font-weight: 500;
@@ -13,6 +19,12 @@
     letter-spacing: 0.1em;
 }
 
+@media screen and (max-width: 1000px) {
+    .title {
+        font-size: 30px;
+    }
+}
+
 .footer {
     font-size: 20px;
     color: #74746b;
@@ -20,6 +32,12 @@
     align-self: end;
     margin-left: 5px;
     margin-bottom: 5px;
+}
+
+@media screen and (max-width: 1000px) {
+    .footer {
+        font-size: 10px;
+    }
 }
 
 .headingDivider {
