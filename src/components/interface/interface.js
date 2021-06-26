@@ -3,8 +3,10 @@ import PriceFromDistanceCalculator from './priceFromDistanceCalculator/priceFrom
 
 import styles from './interface.module.css';
 
-const Title = () => <div className={styles.title}>{'BRUM 🚗💨'}</div>;
-const Footer = () => {
+export const Title = (props) => (
+    <div className={styles.title}>{props.title}</div>
+);
+export const Footer = () => {
     const currentYear = new Date().getFullYear();
     return (
         <div className={styles.footer}>
@@ -13,7 +15,7 @@ const Footer = () => {
     );
 };
 
-const HeadingDivider = (props) => {
+export const HeadingDivider = (props) => {
     const { heading } = props;
     return <div className={styles.headingDivider}>{heading.toUpperCase()}</div>;
 };
@@ -22,7 +24,7 @@ const Interface = (props) => {
     const { cost, mapError, costPerMile } = props;
     return (
         <div className={styles.interfaceWrapper}>
-            <Title />
+            <Title title={'BRUM 🚗💨'} />
             <div className={styles.optionsWrapper}>
                 {mapError && <Error error={mapError} />}
                 {!mapError && <div>{cost}</div>}
