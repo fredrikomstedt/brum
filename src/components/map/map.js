@@ -9,15 +9,8 @@ mapboxgl.accessToken =
     'pk.eyJ1IjoieGFyaWwiLCJhIjoiY2pwYTEyaGdiMDAxbzNzbWx5enAwdm9rOSJ9.7eZF_wXP5rnEMZRG_JmkYw';
 
 const Map = (props) => {
-    const {
-        isRoundTrip,
-        costPerMile,
-        setCost,
-        mapError,
-        setMapError,
-        home,
-        zoom,
-    } = props;
+    const { isRoundTrip, costPerMile, setCost, setMapError, home, zoom } =
+        props;
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [distance, setDistance] = useState(null);
@@ -64,7 +57,7 @@ const Map = (props) => {
         cost *= isRoundTrip ? 2 : 1;
         setCost(cost);
         setMapError(null);
-    }, [isRoundTrip, costPerMile, distance, mapError, setCost, setMapError]);
+    }, [isRoundTrip, costPerMile, distance, setCost, setMapError]);
 
     useEffect(() => {
         if (map.current) {
