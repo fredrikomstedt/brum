@@ -6,9 +6,16 @@ import './App.css';
 const App = () => {
     const [cost, setCost] = useState(null);
     const [mapError, setMapError] = useState(null);
+    const [isRoundTrip, setIsRoundTrip] = useState(false);
     return (
         <div className="app">
-            <Interface cost={cost} mapError={mapError} costPerMile={18.5} />
+            <Interface
+                cost={cost}
+                mapError={mapError}
+                costPerMile={18.5}
+                isRoundTrip={isRoundTrip}
+                setIsRoundTrip={setIsRoundTrip}
+            />
             <Map
                 home={{
                     lng: 18.042198,
@@ -17,7 +24,7 @@ const App = () => {
                 }}
                 zoom={14}
                 costPerMile={18.5}
-                isRoundTrip={true}
+                isRoundTrip={isRoundTrip}
                 setCost={setCost}
                 setMapError={setMapError}
             />

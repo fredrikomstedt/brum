@@ -22,13 +22,19 @@ export const HeadingDivider = (props) => {
 };
 
 const Interface = (props) => {
-    const { cost, mapError, costPerMile } = props;
+    const { cost, mapError, costPerMile, isRoundTrip, setIsRoundTrip } = props;
     return (
         <div className={styles.interfaceWrapper}>
             <Title title={'BRUM 🚗💨'} />
             <div className={styles.optionsWrapper}>
                 {mapError && <Error error={mapError} />}
-                {!mapError && <PriceFromMapCalculator cost={cost} />}
+                {!mapError && (
+                    <PriceFromMapCalculator
+                        cost={cost}
+                        isRoundTrip={isRoundTrip}
+                        setIsRoundTrip={setIsRoundTrip}
+                    />
+                )}
                 <HeadingDivider heading={'or'} />
                 <PriceFromDistanceCalculator
                     className={styles.priceFromDistanceCalculator}

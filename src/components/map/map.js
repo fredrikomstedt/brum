@@ -1,6 +1,6 @@
 import mapboxgl from 'mapbox-gl';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getPriceFromDistance } from 'utils/utilityFunctions';
 
 import styles from './map.module.css';
@@ -9,8 +9,18 @@ mapboxgl.accessToken =
     'pk.eyJ1IjoieGFyaWwiLCJhIjoiY2pwYTEyaGdiMDAxbzNzbWx5enAwdm9rOSJ9.7eZF_wXP5rnEMZRG_JmkYw';
 
 const Map = (props) => {
+    const {
+        isRoundTrip,
+        costPerMile,
+        setCost,
+        mapError,
+        setMapError,
+        home,
+        zoom,
+    } = props;
     const mapContainer = useRef(null);
     const map = useRef(null);
+    const [distance, setDistance] = useState(null);
 
     const findDistance = async (directions) => {
         const origin = directions.getOrigin().geometry.coordinates;
@@ -33,14 +43,28 @@ const Map = (props) => {
             const data = await response.json();
             const route = data.routes.find((route) => route !== undefined);
             if (route) {
-                return [route.distance, null];
+                setDistance(route.distance);
+                setMapError(null);
+            } else {
+                setMapError('No route found');
+                setDistance(null);
             }
-            return [null, 'No route found'];
         } catch (error) {
-            console.error(error);
-            return [null, 'Something went wrong when creating a route'];
+            setMapError('Something went wrong when creating a route');
+            setDistance(null);
         }
     };
+
+    useEffect(() => {
+        if (!distance) {
+            return;
+        }
+
+        let cost = getPriceFromDistance(distance, costPerMile);
+        cost *= isRoundTrip ? 2 : 1;
+        setCost(cost);
+        setMapError(null);
+    }, [isRoundTrip, costPerMile, distance, mapError, setCost, setMapError]);
 
     useEffect(() => {
         if (map.current) {
@@ -51,8 +75,8 @@ const Map = (props) => {
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [props.home.lng, props.home.lat],
-            zoom: props.zoom,
+            center: [home.lng, home.lat],
+            zoom: zoom,
         });
 
         // Add navigation controls (rotation, zoom)
@@ -70,25 +94,11 @@ const Map = (props) => {
         map.current.addControl(directions, 'top-left');
 
         //Set the starting point to be the home of the car
-        directions.setOrigin(props.home.address);
+        directions.setOrigin(home.address);
 
         //Each new route should result in the app calculating the price
         directions.on('route', () => {
-            findDistance(directions).then((result) => {
-                const [distance, error] = result;
-                if (error) {
-                    props.setCost(null);
-                    props.setMapError(error);
-                } else {
-                    let cost = getPriceFromDistance(
-                        distance,
-                        props.costPerMile
-                    );
-                    cost *= props.isRoundTrip ? 2 : 1;
-                    props.setCost(cost);
-                    props.setMapError(null);
-                }
-            });
+            findDistance(directions);
         });
     });
 

@@ -5,7 +5,7 @@ const Error = (props) => {
         <div className={`${styles.errorWrapper} ${props.className ?? ''}`}>
             <div className={styles.error}>{props.error.toUpperCase()}</div>
             <div className={styles.info}>
-                {'Please try refreshing the page.'}
+                {'Please try another destination.'}
             </div>
         </div>
     );
