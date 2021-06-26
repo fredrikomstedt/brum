@@ -53,5 +53,5 @@ jobs:
                 echo "Changed directory to website directory"
                 git pull
                 echo "Updates fetched from origin"
-                gatsby build
+                yarn build
                 echo "Website deployed"
