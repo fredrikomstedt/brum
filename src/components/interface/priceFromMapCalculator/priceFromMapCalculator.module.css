@@ -16,17 +16,8 @@
     justify-self: center;
 }
 
-.toggleWrapper {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: 1fr;
-    align-items: center;
-    justify-items: center;
-}
-
-.selectionText {
-    color: #fffafb;
-    font-weight: 300;
-    font-size: 20px;
-    letter-spacing: 0.1em;
+@media screen and (max-width: 1000px) {
+    .infoText {
+        font-size: 24px !important;
+    }
 }

@@ -1,3 +1,4 @@
+import Toggle from './toggle/toggle';
 import Error from './error/error';
 import PriceFromMapCalculator from './priceFromMapCalculator/priceFromMapCalculator';
 import PriceFromDistanceCalculator from './priceFromDistanceCalculator/priceFromDistanceCalculator';
@@ -23,16 +24,32 @@ export const HeadingDivider = (props) => {
 };
 
 const MobileInterface = (props) => {
+    const [isMapMode, setIsMapMode] = useState(true);
+
     const { cost, mapError, costPerMile, isRoundTrip, setIsRoundTrip } = props;
     return (
         <div className={styles.interfaceWrapper}>
-            <Title title={'BRUM 🚗💨'} />
+            <div className={styles.titleWrapper}>
+                <Title title={'BRUM 🚗💨'} />
+                <Toggle
+                    leftText={'km'}
+                    rightText={'🗺️'}
+                    onChange={setIsMapMode}
+                    value={isMapMode}
+                />
+            </div>
             {mapError && <Error error={mapError} />}
-            {!mapError && (
+            {!mapError && isMapMode && (
                 <PriceFromMapCalculator
                     cost={cost}
                     isRoundTrip={isRoundTrip}
                     setIsRoundTrip={setIsRoundTrip}
+                />
+            )}
+            {!mapError && !isMapMode && (
+                <PriceFromDistanceCalculator
+                    className={styles.priceFromDistanceCalculator}
+                    costPerMile={costPerMile}
                 />
             )}
             <Footer />
