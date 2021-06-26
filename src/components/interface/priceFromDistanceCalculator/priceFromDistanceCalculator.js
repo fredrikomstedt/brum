@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import CostVisualizer from 'components/interface/costVisualizer/costVisualizer';
 import DistanceInput from 'components/interface/distanceInput/distanceInput';
+import InfoText from 'components/interface/infoText/infoText';
 import { getPriceFromDistance } from 'utils/utilityFunctions';
 
 import styles from './priceFromDistanceCalculator.module.css';
@@ -25,9 +26,7 @@ const PriceFromDistanceCalculator = (props) => {
     return (
         <div className={`${styles.wrapper} ${props.className ?? ''}`}>
             <div>
-                <span className={styles.infoText}>
-                    {'Enter the length of the trip: '}
-                </span>
+                <InfoText text={'Enter the length of the trip: '} />
                 <DistanceInput value={distance} setValue={setDistance} />
             </div>
             <CostVisualizer cost={cost} className={styles.costVisualizer} />
