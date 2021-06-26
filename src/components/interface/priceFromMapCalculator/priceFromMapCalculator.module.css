@@ -5,3 +5,7 @@
     grid-template-rows: 1fr 1fr 1fr;
     align-items: center;
 }
+
+.infoText {
+    justify-self: center;
+}

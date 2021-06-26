@@ -6,6 +6,10 @@
     align-items: center;
 }
 
+.textWrapper {
+    justify-self: center;
+}
+
 .costVisualizer {
     justify-self: center;
 }

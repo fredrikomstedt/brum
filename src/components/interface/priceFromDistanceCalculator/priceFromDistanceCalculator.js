@@ -25,7 +25,7 @@ const PriceFromDistanceCalculator = (props) => {
 
     return (
         <div className={`${styles.wrapper} ${props.className ?? ''}`}>
-            <div>
+            <div className={styles.textWrapper}>
                 <InfoText text={'Enter the length of the trip: '} />
                 <DistanceInput value={distance} setValue={setDistance} />
             </div>
