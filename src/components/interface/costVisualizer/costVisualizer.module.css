@@ -1,5 +1,5 @@
 .costWrapper {
-    justify-self: center;
+    justify-self: stretch;
     display: flex;
     align-items: center;
     justify-content: center;

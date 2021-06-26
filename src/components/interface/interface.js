@@ -1,4 +1,5 @@
 import Error from './error/error';
+import PriceFromMapCalculator from './priceFromMapCalculator/priceFromMapCalculator';
 import PriceFromDistanceCalculator from './priceFromDistanceCalculator/priceFromDistanceCalculator';
 
 import styles from './interface.module.css';
@@ -27,7 +28,7 @@ const Interface = (props) => {
             <Title title={'BRUM 🚗💨'} />
             <div className={styles.optionsWrapper}>
                 {mapError && <Error error={mapError} />}
-                {!mapError && <div>{cost}</div>}
+                {!mapError && <PriceFromMapCalculator cost={cost} />}
                 <HeadingDivider heading={'or'} />
                 <PriceFromDistanceCalculator
                     className={styles.priceFromDistanceCalculator}
