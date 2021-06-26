@@ -79,6 +79,6 @@ test('renders cost if not null', () => {
         />
     );
 
-    const textComponent = screen.queryByText(cost, { exact: false });
+    const textComponent = screen.getByText(cost, { exact: false });
     expect(textComponent).toBeInTheDocument();
 });
