@@ -18,9 +18,9 @@ const App = () => {
             />
             <Map
                 home={{
-                    lng: 18.042198,
-                    lat: 59.396539,
-                    address: 'Mörbyhöjden 16, 182 32 Danderyd, Sweden',
+                    lng: 17.967610,
+                    lat: 59.362570,
+                    address: 'Brunnsgatan 2A, 172 68 Sundbyberg, Sweden',
                 }}
                 zoom={14}
                 costPerMile={18.5}
